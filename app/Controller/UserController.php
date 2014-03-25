@@ -32,19 +32,22 @@ class UserController extends AppController {
                                      FROM location , user WHERE user.id = location.user_id HAVING distance < ". $distance ." ORDER BY distance LIMIT 0 , 20;";
         //print_r($sql);
         $result = $this->User->query($sql);
-        $output = $this->normalizeLocationResult($result);
+        $output = new stdClass();
+        $output->users = $this->normalizeLocationResult($result);
         //print_r($output);
         return json_encode( $output );
 
     }
 
-    function normalizeLocationResult($result) {
+    private function normalizeLocationResult($result) {
         $users = array();
-        $count = 0;
+        $count = 1;
         foreach($result as $row) {
-            $users[$count] = $row['user'];
-            $users[$count]['location'] = $row['location'];
-            $users[$count]['distance'] = $row['0']['distance'];
+            $user = $row['user'];
+            $user['location'] = $row['location'];
+            $user['distance'] = $row['0']['distance'];
+            //$users[$count] = $user;
+            $users[$user['id']] =   $user;
             $count++;
         }
         return $users;
