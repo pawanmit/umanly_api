@@ -29,7 +29,12 @@
  * ...and connect the rest of 'Pages' controller's URLs.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+
+
     Router::connect('/user', array('controller' => 'user', 'action' => 'getAllUsers', '[method]' => 'GET' ));
+
+    Router::connect('/user/search/distance', array('controller' => 'user', 'action' => 'getUsersNearLocationWithinDistance', '[method]' => 'GET' ));
+
     Router::connect('/user/:id/location', array('controller' => 'user', 'action' => 'updateUserLocation', '[method]' => 'POST' ));
     Router::connect('/user', array('controller' => 'user', 'action' => 'createOrUpdateUser', '[method]' => 'POST' ));
 
