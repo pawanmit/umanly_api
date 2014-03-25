@@ -19,9 +19,10 @@ CREATE TABLE user
 
 CREATE TABLE location (
   id INT NOT NULL AUTO_INCREMENT,
-  user_id INT,
+  user_id INT NOT NULL,
   longitude DECIMAL(11, 8) NOT NULL DEFAULT -1,
   latitude DECIMAL(10, 8) NOT NULL DEFAULT -1,
   PRIMARY KEY (id),
+  UNIQUE INDEX user_location_idx (user_id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
