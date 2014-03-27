@@ -113,6 +113,7 @@ class UserController extends AppController {
     }
 
     public function createOrUpdateUser() {
+        $this->log($this->request->data);
         $this->autoRender = false;
         $this->response->type('json');
         $user = null;
@@ -139,6 +140,19 @@ class UserController extends AppController {
         $this->response->body(json_encode($response));
     }
 
+    public function updateUserById() {
+        $this->autoRender = false;
+        $this->response->type('json');
+        $user_id = $this->request->params['id'];
+        $this->User->id = $user_id;
+        try {
+            $this->User->save($this->request->data);
+        } catch(Exception $e) {
+            $this->handleModelException($e);
+        }
+        $response = array ("id" => $this->User->id);
+        $this->response->body(json_encode($response));
+    }
 
     private function handleModelException($e) {
         $errorMessage = $e->getMessage();
