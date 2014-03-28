@@ -11,7 +11,7 @@ CREATE TABLE user
   gender VARCHAR(6),
   hometown VARCHAR(100),
   facebook_link VARCHAR(100),
-  profile_image_link VARCHAR(100),
+  facebook_username VARCHAR(255),
   password VARCHAR(100) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX user_email_idx (email)
