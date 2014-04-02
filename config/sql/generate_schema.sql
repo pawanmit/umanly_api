@@ -13,6 +13,7 @@ CREATE TABLE user
   facebook_link VARCHAR(100),
   facebook_username VARCHAR(255),
   password VARCHAR(100) NOT NULL,
+  availability TINYINT(1) DEFAULT 1,
   PRIMARY KEY (id),
   UNIQUE INDEX user_email_idx (email)
 );
