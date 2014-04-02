@@ -6,4 +6,5 @@ class User extends AppModel {
 
     public $useTable = "user";
     public $hasOne = "Location";
+
 }

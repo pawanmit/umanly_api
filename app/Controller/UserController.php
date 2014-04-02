@@ -100,19 +100,6 @@ class UserController extends AppController {
         }
     }
 
-    private function checkForMissingData($fields) {
-        foreach($fields as $field) {
-            $this->log("Checking for " . $field);
-            if ( !isset($this->request->data[$field] )  ) {
-                $this->response->statusCode(400);
-                $error = "Bad input data. Missing " . $field . " information";
-                $response = array("error" => $error);
-                $this->response->body(json_encode($response));
-                return $this->response;
-            }
-        }
-    }
-
     public function createOrUpdateUser() {
         $this->log($this->request->data);
         $this->autoRender = false;
@@ -141,6 +128,26 @@ class UserController extends AppController {
         $this->response->body(json_encode($response));
     }
 
+    public function updateUserAvailability() {
+        $this->autoRender = false;
+        $this->response->type('json');
+        $user_id = $this->request->params['id'];
+        $this->User->id = $user_id;
+        $fields = array('availability');
+        if ($this->checkForMissingData($fields)) {
+            return;
+        };
+        try {
+            $this->User->save($this->request->data);
+        } catch(Exception $e) {
+            $this->handleModelException($e);
+        }
+        //$this->log($this->User->lastQuery());
+        //die;
+        $response = array ("id" => $this->User->id);
+        $this->response->body(json_encode($response));
+    }
+
     public function updateUserById() {
         $this->autoRender = false;
         $this->response->type('json');
@@ -153,6 +160,19 @@ class UserController extends AppController {
         }
         $response = array ("id" => $this->User->id);
         $this->response->body(json_encode($response));
+    }
+
+    private function checkForMissingData($fields) {
+        foreach($fields as $field) {
+            $this->log("Checking for " . $field);
+            if ( !isset($this->request->data[$field] )  ) {
+                $this->response->statusCode(400);
+                $error = "Bad input data. Missing " . $field . " information";
+                $response = array("error" => $error);
+                $this->response->body(json_encode($response));
+                return $this->response;
+            }
+        }
     }
 
     private function handleModelException($e) {
