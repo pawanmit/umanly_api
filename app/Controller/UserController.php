@@ -27,11 +27,10 @@ class UserController extends AppController {
         $latitude = $this->request->query['latitude'];
         $longitude = $this->request->query['longitude'];
         $distance = $this->request->query['distance'];
-        $sql = "SELECT user.id, user.first_name, user.last_name, user.facebook_username,
+        $sql = "SELECT user.id, user.first_name, user.last_name, user.facebook_username, user.availability,
                 location.latitude, location.longitude,  ( 3959 * acos( cos( radians(" . $latitude .") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(" . $longitude .") )
                                     + sin( radians(" . $latitude .") ) * sin( radians( latitude ) ) ) ) AS distance
                                      FROM location , user WHERE user.id = location.user_id HAVING distance < ". $distance ." ORDER BY distance LIMIT 0 , 20;";
-        //print_r($sql);
         $result = $this->User->query($sql);
         $output = new stdClass();
         $output->users = $this->normalizeLocationResult($result);
@@ -124,8 +123,9 @@ class UserController extends AppController {
         } catch ( Exception $e) {
             $this->handleModelException($e);
         }
-        $response = array ("id" => $this->User->id);
-        $this->response->body(json_encode($response));
+        //$response = array ("id" => $this->User->id);
+        $response = $this->getUserById($this->User->id);
+        $this->response->body(json_encode($response['0']['USER']));
     }
 
     public function updateUserAvailability() {
@@ -146,6 +146,15 @@ class UserController extends AppController {
         //die;
         $response = array ("id" => $this->User->id);
         $this->response->body(json_encode($response));
+    }
+
+    public function getUserById($user_id) {
+        //$this->autoRender = false;
+        //$this->response->type('json');
+        //$user_id = $this->request->params['id'];
+        $sql = "SELECT * FROM USER WHERE id = " . $user_id;
+        $result = $this->User->query($sql);
+        return $result;
     }
 
     public function updateUserById() {
