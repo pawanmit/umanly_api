@@ -10,6 +10,7 @@ CREATE TABLE user
   last_name VARCHAR(25) NOT NULL,
   gender VARCHAR(6),
   hometown VARCHAR(100),
+  birthday VARCHAR(12),
   facebook_link VARCHAR(100),
   facebook_username VARCHAR(255),
   password VARCHAR(100) NOT NULL,
