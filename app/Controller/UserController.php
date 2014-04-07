@@ -27,7 +27,7 @@ class UserController extends AppController {
         $latitude = $this->request->query['latitude'];
         $longitude = $this->request->query['longitude'];
         $distance = $this->request->query['distance'];
-        $sql = "SELECT user.id, user.first_name, user.last_name, user.facebook_username, user.availability, user.birthday, user.hometown,
+        $sql = "SELECT user.id, user.first_name, user.last_name, user.facebook_username, user.availability, user.birthday, user.hometown, user.gender,
                 location.latitude, location.longitude,  ( 3959 * acos( cos( radians(" . $latitude .") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(" . $longitude .") )
                                     + sin( radians(" . $latitude .") ) * sin( radians( latitude ) ) ) ) AS distance
                                      FROM location , user WHERE user.id = location.user_id HAVING distance < ". $distance ." ORDER BY distance LIMIT 0 , 20;";
