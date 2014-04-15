@@ -15,6 +15,7 @@ CREATE TABLE user
   facebook_username VARCHAR(255),
   password VARCHAR(100) NOT NULL,
   availability TINYINT(1) DEFAULT 1,
+  chat_status VARCHAR(25) NOT NULL DEFAULT 'available',
   PRIMARY KEY (id),
   UNIQUE INDEX user_email_idx (email)
 );
@@ -29,3 +30,4 @@ CREATE TABLE location (
   UNIQUE INDEX user_location_idx (user_id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
+

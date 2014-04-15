@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.15)
 # Database: umanly
-# Generation Time: 2014-04-15 19:01:38 +0000
+# Generation Time: 2014-04-15 21:37:41 +0000
 # ************************************************************
 
 
@@ -18,6 +18,33 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table chat_status
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `chat_status`;
+
+CREATE TABLE `chat_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(25) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `chat_status` WRITE;
+/*!40000 ALTER TABLE `chat_status` DISABLE KEYS */;
+
+INSERT INTO `chat_status` (`id`, `status`, `description`)
+VALUES
+	(1,'waiting_for_response','User sent chat request to another user and is awaiting response.'),
+	(2,'waiting_to_reply','User has received chat request but has not accepted or denied it yet.'),
+	(3,'chatting','User is chatting with another user.'),
+	(4,'available','User is available for chat'),
+	(5,'unavailable','User is unavailable to chat');
+
+/*!40000 ALTER TABLE `chat_status` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table location
@@ -64,6 +91,7 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL,
   `availability` tinyint(1) DEFAULT '1',
   `birthday` varchar(12) DEFAULT NULL,
+  `chat_status` varchar(25) NOT NULL DEFAULT 'available',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_email_idx` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -71,11 +99,11 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`id`, `email`, `first_name`, `last_name`, `gender`, `hometown`, `facebook_link`, `facebook_username`, `password`, `availability`, `birthday`)
+INSERT INTO `user` (`id`, `email`, `first_name`, `last_name`, `gender`, `hometown`, `facebook_link`, `facebook_username`, `password`, `availability`, `birthday`, `chat_status`)
 VALUES
-	(1,'mitpawan@gmail.com','Pawan','Mittal','male','Dublin, California','https://www.facebook.com/pawanmittal','pawanmittal','',1,'11/26/1978'),
-	(2,'anamika.grad@gmail.com','Anamika','Aggarwal','female','Punjab','https://www.facebook.com/anamika.aggarwal.182','anamika.aggarwal.182','',1,'09/22/1982'),
-	(4,'pawan_mittal@gmail.com','SuperMan','mittal','male','delhi','www.wired.com',NULL,'',0,NULL);
+	(1,'mitpawan@gmail.com','Pawan','Mittal','male','Dublin, California','https://www.facebook.com/pawanmittal','pawanmittal','',1,'11/26/1978','available'),
+	(2,'anamika.grad@gmail.com','Anamika','Aggarwal','female','Punjab','https://www.facebook.com/anamika.aggarwal.182','anamika.aggarwal.182','',1,'09/22/1982','available'),
+	(4,'pawan_mittal@gmail.com','SuperMan','mittal','male','delhi','www.wired.com',NULL,'',0,NULL,'available');
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
