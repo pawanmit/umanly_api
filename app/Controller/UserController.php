@@ -148,11 +148,19 @@ class UserController extends AppController {
         $this->response->body(json_encode($response));
     }
 
-    public function getUserById($user_id) {
+    public function getUser() {
+        $this->autoRender = false;
+        $this->response->type('json');
+        $user_id = $this->request->params['id'];
+        $result = $this->getUserById($user_id);
+        return json_encode($result);
+
+    }
+    private function getUserById($user_id) {
         //$this->autoRender = false;
         //$this->response->type('json');
         //$user_id = $this->request->params['id'];
-        $sql = "SELECT * FROM USER WHERE id = " . $user_id;
+        $sql = "SELECT * FROM User WHERE id = " . $user_id;
         $result = $this->User->query($sql);
         return $result;
     }

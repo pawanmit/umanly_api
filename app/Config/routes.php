@@ -38,9 +38,8 @@
     Router::connect('/user/:id/location', array('controller' => 'user', 'action' => 'updateUserLocation', '[method]' => 'POST' ));
     Router::connect('/user', array('controller' => 'user', 'action' => 'createOrUpdateUser', '[method]' => 'POST' ));
     Router::connect('/user/:id', array('controller' => 'user', 'action' => 'updateUserById', '[method]' => 'POST' ));
-    Router::connect('/user/:id', array('controller' => 'user', 'action' => 'getUserById', '[method]' => 'GET' ));
+    Router::connect('/user/:id', array('controller' => 'user', 'action' => 'getUser', '[method]' => 'GET' ));
     Router::connect('/user/:id/availability', array('controller' => 'user', 'action' => 'updateUserAvailability', '[method]' => 'POST' ));
-
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
