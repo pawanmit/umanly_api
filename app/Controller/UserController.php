@@ -125,7 +125,7 @@ class UserController extends AppController {
         }
         //$response = array ("id" => $this->User->id);
         $response = $this->getUserById($this->User->id);
-        $this->response->body(json_encode($response['0']['USER']));
+        $this->response->body(json_encode($response['0']));
     }
 
     public function updateUserAvailability() {
