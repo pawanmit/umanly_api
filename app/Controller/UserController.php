@@ -153,7 +153,7 @@ class UserController extends AppController {
         $this->response->type('json');
         $user_id = $this->request->params['id'];
         $result = $this->getUserById($user_id);
-        return json_encode($result);
+        return json_encode($result['0']);
 
     }
     private function getUserById($user_id) {
