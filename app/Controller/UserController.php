@@ -160,7 +160,7 @@ class UserController extends AppController {
         //$this->autoRender = false;
         //$this->response->type('json');
         //$user_id = $this->request->params['id'];
-        $sql = "SELECT * FROM User WHERE id = " . $user_id;
+        $sql = "SELECT * FROM user WHERE id = " . $user_id;
         $result = $this->User->query($sql);
         return $result;
     }
